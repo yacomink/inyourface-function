@@ -27,11 +27,11 @@ def hello_http(request):
     effects = data.get("effects")
     effects = list(filter((lambda x: is_effect(x)), effects))
 
-    gif = EffectOrchestrator(urls, "./", None, effects)
+    gif = EffectOrchestrator(urls, "/tmp/", None, effects)
     name = gif.gif()
     client = storage.Client()
     bucket = client.get_bucket('inyourface')
-    blob2 = bucket.blob(re.sub('^\.', 'cf', name))
+    blob2 = bucket.blob(re.sub('^/tmp', 'cf', name))
     blob2.upload_from_filename(filename=name)
     os.unlink(name)
     return blob2.public_url
