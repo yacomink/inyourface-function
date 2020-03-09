@@ -1,0 +1,2 @@
+functions-framework==1.2.0
+inyourface>=0.0.15
