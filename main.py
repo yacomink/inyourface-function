@@ -37,6 +37,7 @@ def hello_http(request):
 
     pprint.pprint(os.stat(name))
     print(len(blob.download_as_string()))
+    print(os.system("gifsicle"))
 
     return blob.public_url
 
