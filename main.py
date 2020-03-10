@@ -5,6 +5,7 @@ from flask import request, escape
 import inyourface.effect
 from inyourface import EffectOrchestrator
 from google.cloud import storage
+import pprint
 
 """
 This is a basic request for an inyourface effect which will return a gif with
@@ -31,10 +32,13 @@ def hello_http(request):
     name = gif.gif()
     client = storage.Client()
     bucket = client.get_bucket('inyourface')
-    blob2 = bucket.blob(re.sub('^/tmp', 'cf', name))
-    blob2.upload_from_filename(filename=name)
-    os.unlink(name)
-    return blob2.public_url
+    blob = bucket.blob(re.sub('^/tmp', 'cf', name))
+    blob.upload_from_filename(filename=name)
+
+    pprint.pprint(os.stat(name))
+    print(len(blob.download_as_string()))
+
+    return blob.public_url
 
 
 def is_effect(e):
