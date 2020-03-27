@@ -34,10 +34,7 @@ def hello_http(request):
     bucket = client.get_bucket('inyourface')
     blob = bucket.blob(re.sub('^/tmp', 'cf', name))
     blob.upload_from_filename(filename=name)
-
-    pprint.pprint(os.stat(name))
-    print(len(blob.download_as_string()))
-    print(os.system("gifsicle"))
+    os.unlink(name)
 
     return blob.public_url
 
